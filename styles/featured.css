@@ -263,28 +263,11 @@
 
 /* --- Browse all ---------------------------------------------------------- */
 
+/* Only placement: the look comes from .btn. */
 .fa__browse {
   position: absolute;
   left: calc(1102 * var(--k));
   top: calc((var(--row-1) + var(--row) * 2 + 336) * var(--k));
-  display: inline-flex;
-  align-items: center;
-  gap: calc(8 * var(--k));
-  height: calc(34 * var(--k));
-  padding-inline: calc(16 * var(--k));
-  border: 1px solid var(--c-rule);
-  border-radius: calc(4 * var(--k));
-  font-size: calc(13 * var(--k));
-  color: var(--c-ink);
-  white-space: nowrap;
-  transition: border-color 300ms var(--ease-out), background-color 300ms var(--ease-out);
-}
-
-.fa__browse svg { width: calc(13 * var(--k)); height: calc(13 * var(--k)); }
-
-.fa__browse:hover {
-  border-color: rgba(255, 255, 255, 0.34);
-  background: rgba(255, 255, 255, 0.04);
 }
 
 /* ---------------------------------------------------------------------------
@@ -416,11 +399,5 @@
     left: auto;
     top: auto;
     margin-top: clamp(32px, 7vw, 48px);
-    height: 40px;
-    padding-inline: 18px;
-    border-radius: 4px;
-    font-size: 14px;
   }
-
-  .fa__browse svg { width: 14px; height: 14px; }
 }

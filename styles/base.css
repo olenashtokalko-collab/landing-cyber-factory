@@ -48,3 +48,47 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .is-split .rv-char { opacity: 1; }
 }
+
+/* ---------------------------------------------------------------------------
+   Button — the page's one CTA shape, lifted out of "Browse all" so the
+   floating CTA wears exactly the same thing. Callers add only positioning.
+   --------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--k));
+  height: calc(34 * var(--k));
+  padding-inline: calc(16 * var(--k));
+  border: 1px solid var(--c-rule);
+  border-radius: calc(4 * var(--k));
+  font-size: calc(13 * var(--k));
+  color: var(--c-ink);
+  white-space: nowrap;
+  transition:
+    border-color 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
+}
+
+.btn svg {
+  width: calc(13 * var(--k));
+  height: calc(13 * var(--k));
+  transition: color 300ms var(--ease-out);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 1023px) {
+  .btn {
+    height: 40px;
+    padding-inline: 18px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .btn svg { width: 14px; height: 14px; }
+}

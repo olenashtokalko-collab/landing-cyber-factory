@@ -1,0 +1,131 @@
+/* ---------------------------------------------------------------------------
+   Floating CTA — a persistent system control, pinned bottom-right.
+   It wears the page's existing .btn shape (see base.css); everything below is
+   only what makes it float and what makes it signal on hover.
+   --------------------------------------------------------------------------- */
+
+/* The travelling highlight is one animated angle. Registering it is what lets
+   an angle be interpolated at all; without @property the conic-gradient below
+   is simply dropped and the button keeps its static hover treatment. */
+@property --cta-sweep {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.cta-float {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 40;
+  /* Taller than the inline .btn it borrows from: this one is a standing
+     control, not a link at the end of a list. Side padding grows with it so
+     the proportions hold. */
+  height: calc(44 * var(--k));
+  padding-inline: calc(20 * var(--k));
+  /* Same glass as the topbar, so it reads as chrome rather than as content. */
+  background: rgba(12, 12, 12, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    border-color 300ms var(--ease-out),
+    background-color 300ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+}
+
+/* Held back until the page has resolved, on the same flag the hero uses. */
+.js body:not(.hero-revealed) .cta-float { opacity: 0; }
+
+body.hero-revealed .cta-float {
+  animation: hero-rise 900ms var(--ease-out) 1550ms both;
+}
+
+/* --- Hover: the signal gains -------------------------------------------- */
+/* The arc already runs at rest; hover only turns it up. Accent surfaces in the
+   border, the glow deepens and the arc goes to full strength. No movement, no
+   size change: the button stays put. */
+
+.cta-float:hover,
+.cta-float:focus-visible {
+  border-color: rgba(162, 145, 111, 0.55);
+  background: rgba(12, 12, 12, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(162, 145, 111, 0.10),
+    0 8px 32px rgba(162, 145, 111, 0.20);
+}
+
+.cta-float:hover .cta-float__label,
+.cta-float:focus-visible .cta-float__label { color: #fff; }
+
+.cta-float:hover svg,
+.cta-float:focus-visible svg { color: var(--c-amber); }
+
+/* The arc itself: a conic gradient clipped to the 1px ring by masking out
+   everything inside the padding box. */
+.cta-float::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--cta-sweep),
+    transparent 0turn,
+    transparent 0.60turn,
+    rgba(162, 145, 111, 0.18) 0.70turn,
+    rgb(232, 205, 152) 0.76turn,
+    rgba(162, 145, 111, 0.18) 0.82turn,
+    transparent 0.92turn,
+    transparent 1turn
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  /* Runs in the default state, held back to a quiet level. */
+  opacity: 0.42;
+  animation: cta-sweep 2800ms linear infinite;
+  transition: opacity 320ms var(--ease-out);
+  pointer-events: none;
+}
+
+.cta-float:hover::before,
+.cta-float:focus-visible::before { opacity: 1; }
+
+@keyframes cta-sweep {
+  to { --cta-sweep: 1turn; }
+}
+
+/* --- Smaller viewports --------------------------------------------------- */
+/* Offsets come off the page's own narrow gutter; the hit area stays 40 tall,
+   which .btn already gives it here. */
+
+@media (max-width: 1023px) {
+  .cta-float {
+    right: var(--gutter-m);
+    bottom: var(--gutter-m);
+    height: 46px;
+    padding-inline: 22px;
+  }
+}
+
+@media (max-width: 599px) {
+  .cta-float {
+    right: 16px;
+    bottom: 16px;
+    height: 46px;
+    padding-inline: 18px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.hero-revealed .cta-float { animation: none; }
+
+  /* The static half of the signal is kept; only the running arc stops. */
+  .cta-float::before { animation: none; opacity: 0; }
+}
