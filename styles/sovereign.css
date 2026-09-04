@@ -19,10 +19,17 @@
   background: var(--c-surface-2);
 }
 
+/* Every offset below is measured from the left edge of the design frame, so
+   the frame itself has to be a centred box of the design width. Without this
+   the rails and copy stay pinned to the viewport's left edge while the panel,
+   centred with left: 50%, walks off to the right on anything wider than
+   1440 — landing on the right rail and over the copy. */
 .sbd {
   display: flex;
   flex-direction: column;
+  width: min(100%, calc(var(--frame-w) * var(--k)));
   height: 100%;
+  margin-inline: auto;
   padding-top: calc(124 * var(--k));
 
   --col-l: 510;   /* left rule  */
@@ -99,7 +106,7 @@
 
 .sbd__copy--1,
 .sbd__copy--3 {
-  right: calc((1440 - var(--col-l) + 44) * var(--k));
+  right: calc((var(--frame-w) - var(--col-l) + 44) * var(--k));
   text-align: right;
 }
 
@@ -134,10 +141,12 @@
 
 /* --- Centre column: the stack ------------------------------------------- */
 
+/* Anchored to the midpoint of the two rails rather than to 50% of the frame,
+   so a scrollbar narrowing the frame cannot slide the stack off the band. */
 .sbd__panel {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: calc((var(--col-l) + var(--col-r)) / 2 * var(--k));
   width: calc(240 * var(--k));
   height: calc(226 * var(--k));
   transform: translate(-50%, -50%);
