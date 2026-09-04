@@ -1,0 +1,426 @@
+/* ---------------------------------------------------------------------------
+   Featured agents — Figma frame "Concept — Desktop / Featured agents"
+   (1440 x 1865). Same three-column grid as the rest of the page; three rows of
+   448, each holding one agent, alternating column 2 / column 1 / column 2.
+   --------------------------------------------------------------------------- */
+
+.fa {
+  position: relative;
+  z-index: 1;
+  height: calc(1865 * var(--k));
+  background: var(--c-surface-2);
+  overflow: hidden;
+
+  --col-2: 554;
+  --col-3: 1062;
+  --row-1: 372;
+  --row: 448;
+}
+
+.fa__tag {
+  position: absolute;
+  top: calc(162 * var(--k));
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  height: calc(23 * var(--k));
+  padding-inline: calc(10 * var(--k));
+  border: 1px solid var(--c-rule);
+  border-radius: calc(3 * var(--k));
+  font-family: var(--font-mono);
+  font-size: calc(10 * var(--k));
+  letter-spacing: 0.02em;
+  color: var(--c-ink-55);
+  white-space: nowrap;
+}
+
+.fa__title {
+  position: absolute;
+  top: calc(140 * var(--k));
+  left: calc(474 * var(--k));
+  font-size: calc(36 * var(--k));
+  line-height: calc(46 * var(--k));
+  font-weight: 400;
+  letter-spacing: 0.001em;
+  color: var(--c-ink);
+}
+
+.fa__note {
+  position: absolute;
+  top: calc(162 * var(--k));
+  left: calc(1106 * var(--k));
+  width: calc(286 * var(--k));
+  font-size: calc(13 * var(--k));
+  line-height: calc(20 * var(--k));
+  color: var(--c-ink-mute);
+}
+
+/* --- Grid rules ---------------------------------------------------------- */
+
+.fa__rules { position: absolute; inset: 0; pointer-events: none; }
+
+.fa .rule--h1 { top: calc(var(--row-1) * var(--k)); }
+.fa .rule--h2 { top: calc((var(--row-1) + var(--row)) * var(--k)); }
+.fa .rule--h3 { top: calc((var(--row-1) + var(--row) * 2) * var(--k)); }
+.fa .rule--h4 { top: calc((var(--row-1) + var(--row) * 3) * var(--k)); }
+
+.fa .rule--h { left: var(--gutter); right: var(--gutter); }
+
+.fa .rule--v {
+  top: calc(var(--row-1) * var(--k));
+  height: calc(var(--row) * 3 * var(--k));
+}
+
+.fa .rule--v1 { left: calc(var(--col-2) * var(--k)); }
+.fa .rule--v2 { left: calc(var(--col-3) * var(--k)); }
+
+/* --- Agent rows ---------------------------------------------------------- */
+
+.agent {
+  position: absolute;
+  display: block;
+  height: calc(var(--row) * var(--k));
+  padding: calc(52 * var(--k)) calc(28 * var(--k)) 0;
+  color: inherit;
+  transition: background-color 420ms var(--ease-out);
+}
+
+.agent--1 { left: calc(var(--col-2) * var(--k)); top: calc(var(--row-1) * var(--k)); width: calc(508 * var(--k)); }
+.agent--2 { left: var(--gutter); top: calc((var(--row-1) + var(--row)) * var(--k)); width: calc(506 * var(--k)); }
+.agent--3 { left: calc(var(--col-2) * var(--k)); top: calc((var(--row-1) + var(--row) * 2) * var(--k)); width: calc(508 * var(--k)); }
+
+.agent__no {
+  font-family: var(--font-mono);
+  font-size: calc(13 * var(--k));
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--c-amber);
+}
+
+.agent__arrow {
+  position: absolute;
+  top: calc(50 * var(--k));
+  right: calc(28 * var(--k));
+  width: calc(18 * var(--k));
+  height: calc(18 * var(--k));
+  color: var(--c-ink-70);
+}
+
+.agent__desc {
+  margin-top: calc(28 * var(--k));
+  max-width: calc(392 * var(--k));
+  font-size: calc(13 * var(--k));
+  line-height: calc(20 * var(--k));
+  color: var(--c-ink-mute);
+}
+
+.agent__name {
+  margin-top: calc(30 * var(--k));
+  font-size: calc(24 * var(--k));
+  line-height: calc(31 * var(--k));
+  font-weight: 400;
+  letter-spacing: -0.004em;
+  color: var(--c-ink);
+}
+
+/* --- The product still: a small UI, built rather than screenshotted ------- */
+
+.ui {
+  margin-top: calc(18 * var(--k));
+  display: flex;
+  height: calc(140 * var(--k));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: calc(8 * var(--k));
+  background: linear-gradient(150deg, #171614, #0e0e0d 60%);
+  overflow: hidden;
+}
+
+.ui__side {
+  flex: 0 0 calc(104 * var(--k));
+  padding: calc(10 * var(--k)) calc(9 * var(--k));
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--k));
+}
+
+.ui__brand {
+  display: flex;
+  align-items: center;
+  gap: calc(5 * var(--k));
+  margin-bottom: calc(6 * var(--k));
+  font-size: calc(8 * var(--k));
+  color: var(--c-ink);
+  white-space: nowrap;
+}
+
+.ui__mark {
+  width: calc(11 * var(--k));
+  height: calc(11 * var(--k));
+  border-radius: calc(3 * var(--k));
+  background: linear-gradient(160deg, #e2c489, #a8853f);
+  flex: 0 0 auto;
+}
+
+.ui__item {
+  font-size: calc(7 * var(--k));
+  line-height: calc(10 * var(--k));
+  color: rgba(255, 255, 255, 0.32);
+  white-space: nowrap;
+}
+
+.ui__item--on {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: calc(2 * var(--k));
+  padding: calc(2 * var(--k)) calc(4 * var(--k));
+  margin: calc(-2 * var(--k)) calc(-4 * var(--k));
+}
+
+.ui__main {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: calc(10 * var(--k)) calc(12 * var(--k));
+}
+
+.ui__bar {
+  display: flex;
+  align-items: center;
+  gap: calc(5 * var(--k));
+  margin-bottom: calc(10 * var(--k));
+}
+
+.ui__pill {
+  padding: calc(2 * var(--k)) calc(6 * var(--k));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: calc(3 * var(--k));
+  font-size: calc(6.5 * var(--k));
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.ui__pill--go {
+  border-color: rgba(226, 196, 137, 0.4);
+  color: #e2c489;
+}
+
+.ui__chev {
+  width: calc(8 * var(--k));
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.ui__grow { flex: 1 1 auto; }
+
+.ui__h {
+  font-size: calc(13 * var(--k));
+  line-height: 1.1;
+  color: var(--c-ink);
+}
+
+.ui__sub {
+  margin-top: calc(5 * var(--k));
+  font-size: calc(6.5 * var(--k));
+  line-height: calc(9 * var(--k));
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.ui__field {
+  margin-top: calc(8 * var(--k));
+  height: calc(40 * var(--k));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(4 * var(--k));
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.ui__cells {
+  margin-top: calc(8 * var(--k));
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(6 * var(--k));
+}
+
+.ui__cells span {
+  height: calc(34 * var(--k));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(3 * var(--k));
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.ui__rows {
+  margin-top: calc(8 * var(--k));
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--k));
+}
+
+.ui__rows span {
+  height: calc(9 * var(--k));
+  border-radius: calc(2 * var(--k));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Browse all ---------------------------------------------------------- */
+
+.fa__browse {
+  position: absolute;
+  left: calc(1102 * var(--k));
+  top: calc((var(--row-1) + var(--row) * 2 + 336) * var(--k));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--k));
+  height: calc(34 * var(--k));
+  padding-inline: calc(16 * var(--k));
+  border: 1px solid var(--c-rule);
+  border-radius: calc(4 * var(--k));
+  font-size: calc(13 * var(--k));
+  color: var(--c-ink);
+  white-space: nowrap;
+  transition: border-color 300ms var(--ease-out), background-color 300ms var(--ease-out);
+}
+
+.fa__browse svg { width: calc(13 * var(--k)); height: calc(13 * var(--k)); }
+
+.fa__browse:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ---------------------------------------------------------------------------
+   Hover — the arrow arrives and the row lifts, so it reads as clickable.
+   In the design only 01 shows an arrow; here every row shows its own on hover.
+   --------------------------------------------------------------------------- */
+
+.agent__arrow {
+  opacity: 0;
+  transform: translate3d(calc(-5 * var(--k)), calc(5 * var(--k)), 0);
+  transition:
+    opacity 380ms var(--ease-out),
+    transform 380ms var(--ease-out);
+}
+
+.agent .ui,
+.agent__name {
+  transition: border-color 420ms var(--ease-out), color 420ms var(--ease-out);
+}
+
+.agent:hover,
+.agent:focus-visible {
+  background: rgba(255, 255, 255, 0.022);
+  outline: none;
+}
+
+.agent:hover .agent__arrow,
+.agent:focus-visible .agent__arrow {
+  opacity: 1;
+  transform: none;
+  color: var(--c-ink);
+}
+
+.agent:hover .ui,
+.agent:focus-visible .ui { border-color: rgba(255, 255, 255, 0.2); }
+
+.agent:focus-visible { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .agent__arrow,
+  .agent,
+  .agent .ui { transition: none; }
+  .agent__arrow { transform: none; }
+}
+
+/* --- Below the design's breakpoint -------------------------------------- */
+
+@media (max-width: 1023px) {
+  .fa {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(72px, 14vw, 132px) var(--gutter-m);
+  }
+
+  .fa__tag,
+  .fa__title,
+  .fa__note { position: static; left: auto; top: auto; }
+
+  .fa__tag { height: 26px; padding-inline: 10px; font-size: 11px; }
+
+  .fa__title {
+    margin-top: clamp(28px, 6vw, 48px);
+    max-width: 20ch;
+    font-size: clamp(28px, 6.2vw, 44px);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+
+  .fa__br { display: none; }
+
+  .fa__note {
+    margin-top: clamp(18px, 4vw, 28px);
+    width: 100%;
+    max-width: 46ch;
+    font-size: clamp(14px, 3.6vw, 16px);
+    line-height: 1.5;
+  }
+
+  .fa__rules { display: none; }
+
+  .agent {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    margin-top: clamp(32px, 7vw, 52px);
+    padding: clamp(26px, 6vw, 40px) 0 clamp(28px, 6vw, 40px);
+    border-top: 1px solid var(--c-rule);
+  }
+
+  .agent--3 { border-bottom: 1px solid var(--c-rule); }
+
+  .agent__no { font-size: 12px; }
+  .agent__arrow { top: clamp(24px, 5.6vw, 38px); right: 0; width: 18px; height: 18px; opacity: 1; transform: none; }
+
+  /* The panel grows on small screens, so its contents leave the --k scale. */
+  .ui { margin-top: 18px; height: clamp(150px, 40vw, 190px); border-radius: 8px; }
+  .ui__side { flex-basis: clamp(96px, 26vw, 120px); padding: 12px 11px; gap: 6px; }
+  .ui__brand { font-size: 10px; gap: 6px; margin-bottom: 8px; }
+  .ui__mark { width: 14px; height: 14px; border-radius: 4px; }
+  .ui__item { font-size: 9px; line-height: 13px; }
+  .ui__item--on { padding: 2px 5px; margin: -2px -5px; border-radius: 3px; }
+  .ui__main { padding: 12px 14px; }
+  .ui__bar { gap: 6px; margin-bottom: 12px; }
+  .ui__pill { font-size: 8px; padding: 3px 7px; border-radius: 3px; }
+  .ui__chev { width: 10px; }
+  .ui__h { font-size: 15px; }
+  .ui__sub { font-size: 8px; line-height: 11px; margin-top: 6px; }
+  .ui__field { height: clamp(44px, 12vw, 58px); margin-top: 10px; border-radius: 5px; }
+  .ui__cells { margin-top: 10px; gap: 7px; }
+  .ui__cells span { height: clamp(38px, 10vw, 50px); border-radius: 4px; }
+  .ui__rows { margin-top: 10px; gap: 5px; }
+  .ui__rows span { height: 11px; border-radius: 3px; }
+
+  .agent__desc {
+    margin-top: 20px;
+    max-width: 46ch;
+    font-size: clamp(14px, 3.6vw, 15px);
+    line-height: 1.5;
+  }
+
+  .agent__name { margin-top: 16px; font-size: clamp(20px, 5vw, 26px); line-height: 1.24; }
+
+  .fa__browse {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin-top: clamp(32px, 7vw, 48px);
+    height: 40px;
+    padding-inline: 18px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .fa__browse svg { width: 14px; height: 14px; }
+}

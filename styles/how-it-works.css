@@ -1,0 +1,320 @@
+/* ---------------------------------------------------------------------------
+   How it works — Figma frame "Concept — Desktop / How it works" (1440 x 1106)
+   The timeline resolves to 51 ticks on a 27px pitch; the three steps sit on
+   ticks 9, 25 and 41, i.e. x = 288 / 720 / 1152, with the middle one on the
+   frame's centre line. Cards are centred on those same three positions.
+   --------------------------------------------------------------------------- */
+
+.hiw {
+  position: relative;
+  z-index: 1;
+  height: calc(1106 * var(--k));
+  background: var(--c-surface-2);
+  overflow: hidden;
+
+  --rail-x: 45;      /* first tick */
+  --rail-w: 1350;    /* 50 pitches */
+  --step-w: 365;
+  --p: 0;            /* scroll progress along the rail, 0 → 1 */
+}
+
+/* --- Intro --------------------------------------------------------------- */
+
+.hiw__tag {
+  position: absolute;
+  top: calc(159 * var(--k));
+  left: calc(500 * var(--k));
+  display: flex;
+  align-items: center;
+  height: calc(23 * var(--k));
+  padding-inline: calc(10 * var(--k));
+  border: 1px solid var(--c-rule);
+  border-radius: calc(3 * var(--k));
+  font-family: var(--font-mono);
+  font-size: calc(10 * var(--k));
+  letter-spacing: 0.02em;
+  color: var(--c-ink-55);
+  white-space: nowrap;
+}
+
+.hiw__title {
+  position: absolute;
+  top: calc(195 * var(--k));
+  left: calc(500 * var(--k));
+  font-size: calc(36 * var(--k));
+  line-height: calc(46 * var(--k));
+  font-weight: 400;
+  letter-spacing: 0.001em;
+  color: var(--c-ink);
+}
+
+.hiw__lede {
+  position: absolute;
+  top: calc(313 * var(--k));
+  left: calc(500 * var(--k));
+  font-size: calc(15 * var(--k));
+  line-height: calc(22 * var(--k));
+  color: var(--c-ink-mute);
+}
+
+/* --- Step cards ---------------------------------------------------------- */
+
+.step {
+  position: absolute;
+  top: calc(432 * var(--k));
+  width: calc(var(--step-w) * var(--k));
+  height: calc(298 * var(--k));
+  /* centred on its tick */
+  left: calc((var(--at) - var(--step-w) / 2) * var(--k));
+  padding: calc(71 * var(--k)) calc(24 * var(--k)) calc(51 * var(--k));
+  display: flex;
+  flex-direction: column;
+}
+
+.step--1 { --at: 288; }
+.step--2 { --at: 720; }
+.step--3 { --at: 1152; }
+
+/* Top and bottom rules with short end brackets, as drawn in the design. */
+.step::before,
+.step::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: calc(14 * var(--k));
+  border-inline: 1px solid var(--c-rule);
+  pointer-events: none;
+}
+
+.step::before {
+  top: 0;
+  border-top: 1px solid var(--c-rule);
+}
+
+.step::after {
+  bottom: 0;
+  border-bottom: 1px solid var(--c-rule);
+}
+
+.step__no {
+  font-family: var(--font-mono);
+  font-size: calc(13 * var(--k));
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--c-amber);
+}
+
+.step__title {
+  margin-top: auto;
+  font-size: calc(22 * var(--k));
+  line-height: calc(30 * var(--k));
+  font-weight: 400;
+  letter-spacing: -0.004em;
+  color: var(--c-ink);
+}
+
+.step__note {
+  margin-top: calc(10 * var(--k));
+  font-size: calc(13 * var(--k));
+  line-height: calc(20 * var(--k));
+  color: var(--c-ink-mute);
+}
+
+/* --- Timeline ------------------------------------------------------------ */
+
+.hiw__rail {
+  position: absolute;
+  top: calc(866 * var(--k));
+  left: calc(var(--rail-x) * var(--k));
+  width: calc(var(--rail-w) * var(--k));
+  height: calc(46 * var(--k));
+}
+
+.hiw__ticks {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    currentColor 0 1px,
+    transparent 1px calc(27 * var(--k))
+  );
+  color: rgba(255, 255, 255, 0.16);
+}
+
+/* The lit portion is the same ruler clipped to the progress point, so each
+   tick arrives whole rather than growing. */
+.hiw__ticks--lit {
+  width: calc(var(--p) * 100%);
+  overflow: hidden;
+  color: var(--c-amber);
+}
+
+/* One drop line per step, from the card's foot down past the rail. */
+.hiw__drop {
+  position: absolute;
+  left: calc((var(--at) - var(--rail-x)) * var(--k));
+  top: calc(-136 * var(--k));
+  width: 1px;
+  height: calc(215 * var(--k));
+  background: var(--c-amber);
+  transform-origin: top center;
+}
+
+.hiw__drop--1 { --at: 288; }
+.hiw__drop--2 { --at: 720; }
+.hiw__drop--3 { --at: 1152; }
+
+.hiw__marker {
+  position: absolute;
+  left: calc(var(--p) * 100%);
+  top: calc(-9 * var(--k));
+  width: 1px;
+  height: calc(64 * var(--k));
+  background: linear-gradient(180deg, rgba(216, 189, 134, 0), var(--c-amber) 22%, var(--c-amber) 78%, rgba(216, 189, 134, 0));
+  box-shadow: 0 0 calc(10 * var(--k)) rgba(var(--c-glow), 0.55);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — the marker travels, ticks light behind it, and each card lands
+   as the marker reaches its point.
+   --------------------------------------------------------------------------- */
+
+.js .hiw .step,
+.js .hiw .hiw__drop,
+.js .hiw .hiw__marker {
+  opacity: 0;
+}
+
+.js .hiw .step {
+  transform: translate3d(0, calc(18 * var(--k)), 0);
+  transition:
+    opacity 700ms var(--ease-spring),
+    transform 700ms var(--ease-spring);
+}
+
+.js .hiw .step.is-on {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.js .hiw .hiw__drop {
+  transform: scaleY(0);
+  transition: transform 620ms var(--ease-spring), opacity 260ms linear;
+}
+
+.js .hiw .hiw__drop.is-on {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* The marker only exists while the run is under way. */
+.js .hiw.is-running .hiw__marker { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hiw .step,
+  .js .hiw .hiw__drop {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .js .hiw .hiw__marker { display: none; }
+  .hiw__ticks--lit { width: 100%; }
+}
+
+/* --- Below the design's breakpoint -------------------------------------- */
+
+@media (max-width: 1023px) {
+  .hiw {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(72px, 14vw, 132px) var(--gutter-m);
+  }
+
+  .hiw__tag,
+  .hiw__title,
+  .hiw__lede {
+    position: static;
+    left: auto;
+    top: auto;
+  }
+
+  .hiw__tag {
+    height: 26px;
+    padding-inline: 10px;
+    font-size: 11px;
+  }
+
+  .hiw__title {
+    margin-top: clamp(28px, 6vw, 48px);
+    max-width: 20ch;
+    font-size: clamp(28px, 6.2vw, 44px);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+
+  .hiw__br { display: none; }
+
+  .hiw__lede {
+    margin-top: clamp(18px, 4vw, 28px);
+    max-width: 46ch;
+    font-size: clamp(14px, 3.6vw, 16px);
+    line-height: 1.5;
+  }
+
+  .hiw__steps {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: clamp(40px, 9vw, 72px);
+  }
+
+  .step {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    padding: clamp(26px, 6vw, 40px) 0 clamp(30px, 7vw, 44px);
+  }
+
+  .step::before { border-inline: 0; }
+  .step::after { border-inline: 0; }
+
+  .step__no { font-size: 12px; }
+
+  .step__title {
+    margin-top: clamp(20px, 5vw, 32px);
+    font-size: clamp(20px, 5vw, 26px);
+    line-height: 1.24;
+  }
+
+  .step__note {
+    margin-top: 12px;
+    max-width: 46ch;
+    font-size: clamp(14px, 3.6vw, 15px);
+    line-height: 1.5;
+  }
+
+  .hiw__rail {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: 34px;
+    margin-top: clamp(40px, 9vw, 72px);
+  }
+
+  .hiw__ticks {
+    background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 18px);
+  }
+
+  .hiw__drop { display: none; }
+
+  .hiw__marker {
+    top: -6px;
+    height: 46px;
+  }
+}

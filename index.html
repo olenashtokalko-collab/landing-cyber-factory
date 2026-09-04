@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cyber Factory</title>
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles/reset.css?v=9" />
+  <link rel="stylesheet" href="styles/tokens.css?v=9" />
+  <link rel="stylesheet" href="styles/base.css?v=9" />
+  <link rel="stylesheet" href="styles/hero.css?v=9" />
+  <link rel="stylesheet" href="styles/about.css?v=9" />
+  <link rel="stylesheet" href="styles/how-it-works.css?v=9" />
+  <link rel="stylesheet" href="styles/key-benefits.css?v=9" />
+  <link rel="stylesheet" href="styles/sovereign.css?v=9" />
+  <link rel="stylesheet" href="styles/featured.css?v=9" />
+</head>
+<body>
+
+  <header class="topbar shell">
+    <a class="brand" href="#">
+      <span class="brand__mark">CF</span>
+      <span class="brand__name">Cyber Factory</span>
+    </a>
+
+    <form class="search" role="search" action="#">
+      <svg class="search__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="6.9" cy="6.9" r="4.9" stroke="currentColor" stroke-width="1.3" />
+        <path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+      </svg>
+      <input class="search__input" type="search" name="q" placeholder="Search" aria-label="Search" />
+    </form>
+
+    <nav class="utility" aria-label="Account">
+      <button class="utility__btn" type="button" aria-label="Appearance">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="10" cy="10" r="3.4" stroke="currentColor" stroke-width="1.3" />
+          <g stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <path d="M10 2.2v1.9M10 15.9v1.9M2.2 10h1.9M15.9 10h1.9M4.5 4.5l1.35 1.35M14.15 14.15l1.35 1.35M15.5 4.5l-1.35 1.35M5.85 14.15 4.5 15.5" />
+          </g>
+        </svg>
+      </button>
+      <button class="utility__btn" type="button" aria-label="Notifications">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M5.6 8.2a4.4 4.4 0 0 1 8.8 0v3.1l1.3 2.3H4.3l1.3-2.3V8.2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+          <path d="M8.2 15.6a1.9 1.9 0 0 0 3.6 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+        </svg>
+      </button>
+      <button class="utility__btn" type="button" aria-label="Library">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect x="3.2" y="5.4" width="13.6" height="9.9" rx="2.2" stroke="currentColor" stroke-width="1.3" />
+          <path d="M3.2 9.1h13.6" stroke="currentColor" stroke-width="1.3" />
+          <path d="M8.2 12.2h3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+        </svg>
+      </button>
+      <button class="utility__btn" type="button" aria-label="Systems">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect x="6.2" y="6.2" width="7.6" height="7.6" rx="1.6" stroke="currentColor" stroke-width="1.3" />
+          <g stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <path d="M8.3 3.4v2.1M11.7 3.4v2.1M8.3 14.5v2.1M11.7 14.5v2.1M3.4 8.3h2.1M3.4 11.7h2.1M14.5 8.3h2.1M14.5 11.7h2.1" />
+          </g>
+        </svg>
+      </button>
+      <button class="utility__btn" type="button" aria-label="Region">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="10" cy="10" r="6.8" stroke="currentColor" stroke-width="1.3" />
+          <path d="M3.2 10h13.6" stroke="currentColor" stroke-width="1.3" />
+          <path d="M10 3.2c1.9 2 2.9 4.3 2.9 6.8S11.9 14.8 10 16.8C8.1 14.8 7.1 12.5 7.1 10S8.1 5.2 10 3.2Z" stroke="currentColor" stroke-width="1.3" />
+        </svg>
+      </button>
+      <a class="avatar" href="#" aria-label="Account">A</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <!-- Backdrop: warm light, the monolith skyline, and the edge falloff. -->
+    <div class="hero__backdrop" aria-hidden="true">
+      <div class="hero__scene">
+        <div class="hero__camera">
+          <div class="hero__glow"></div>
+          <div class="hero__skyline">
+            <img class="monolith monolith--far-l"  src="assets/img/monolith.webp" alt="" decoding="async" />
+            <img class="monolith monolith--near-l" src="assets/img/monolith.webp" alt="" decoding="async" />
+            <img class="monolith monolith--near-r" src="assets/img/monolith.webp" alt="" decoding="async" />
+            <img class="monolith monolith--far-r"  src="assets/img/monolith.webp" alt="" decoding="async" />
+          </div>
+        </div>
+      </div>
+      <!-- The vignette belongs to the frame, not the scene, so it stays put. -->
+      <div class="hero__falloff"></div>
+    </div>
+
+    <!-- Hairlines that break either side of the wordmark. -->
+    <div class="hero__rules" aria-hidden="true">
+      <span class="hero__rule hero__rule--l"></span>
+      <span class="hero__rule hero__rule--r"></span>
+    </div>
+
+
+    <div class="hero__stage">
+      <a class="ticker" href="#">
+        <span class="ticker__label">[ Live Threats Catalogued ]</span>
+        <span class="ticker__value">14,802</span>
+        <svg class="ticker__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+
+      <h1 class="hero__title">
+        <span class="hero__title-main">Cyber</span><span class="hero__title-sub">Factory</span>
+      </h1>
+
+
+      <a class="hero__scroll" href="#about">
+        <span class="hero__scroll-arrow" aria-hidden="true">
+          <svg viewBox="0 0 18 22" fill="none">
+            <path d="M9 1.4v19.2M1.9 13.7 9 20.6l7.1-6.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="hero__scroll-label">Scroll to Explore</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <!-- Intro: node icon on the left, statement + copy from the centre line,
+         section tag pinned to the right gutter. -->
+    <p class="about__tag">[ About us ]</p>
+
+    <div class="about__figure about__figure--node">
+      <div class="about__dots" aria-hidden="true"></div>
+      <svg class="ico ico--node" viewBox="0 0 248 160" fill="none" aria-hidden="true">
+        <g class="ico__orbit" stroke="currentColor" stroke-width="1">
+          <path d="M124 22 232 80 124 138 16 80Z" />
+        </g>
+        <g class="ico__rings" stroke="currentColor" stroke-width="1">
+          <path d="M124 44 196 80 124 116 52 80Z" opacity=".55" />
+          <path d="M124 56 172 80 124 104 76 80Z" opacity=".75" />
+        </g>
+        <g class="ico__axes" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity=".5">
+          <path d="M16 80h216" />
+          <path d="M124 22v116" />
+        </g>
+        <g class="ico__node ico__node--n" stroke="currentColor" stroke-width="1">
+          <path d="M124 12 135 18v12l-11 6-11-6V18Z" />
+          <path d="m113 18 11 6 11-6M124 24v12" />
+        </g>
+        <g class="ico__node ico__node--e" stroke="currentColor" stroke-width="1">
+          <path d="M232 70l11 6v12l-11 6-11-6V76Z" />
+          <path d="m221 76 11 6 11-6M232 82v12" />
+        </g>
+        <g class="ico__node ico__node--w" stroke="currentColor" stroke-width="1">
+          <path d="M16 70l11 6v12l-11 6-11-6V76Z" />
+          <path d="m5 76 11 6 11-6M16 82v12" />
+        </g>
+        <g class="ico__node ico__node--s ico__accent" stroke="currentColor" stroke-width="1">
+          <path d="M124 128l11 6v12l-11 6-11-6v-12Z" />
+          <path d="m113 134 11 6 11-6M124 140v12" />
+        </g>
+        <g class="ico__core ico__accent" stroke="currentColor" stroke-width="1">
+          <path d="M124 72l16 8-16 8-16-8Z" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="about__lede">
+      <h2 class="about__title" data-letter-reveal>
+        Move organisations <br class="about__br" />from buying tools <br class="about__br" />to getting real results.
+      </h2>
+      <div class="about__copy">
+        <p>Cyber Factory is a UAE-owned system that works with any vendor. It builds the cybersecurity tools UAE organisations need, so no one has to build them alone.</p>
+        <p>Cyber Factory is a UAE-owned system that works with any vendor. It builds the cybersecurity tools UAE organisations need, so no one has to build them alone.</p>
+      </div>
+    </div>
+
+    <!-- Grid rules, drawn as their own layer so cells stay free of borders. -->
+    <div class="about__rules" aria-hidden="true">
+      <span class="rule rule--h rule--h1"></span>
+      <span class="rule rule--h rule--h2"></span>
+      <span class="rule rule--h rule--h3"></span>
+      <span class="rule rule--h rule--h4"></span>
+      <span class="rule rule--v rule--v1"></span>
+      <span class="rule rule--v rule--v2"></span>
+    </div>
+
+    <article class="cell cell--01">
+      <p class="cell__no">[ 01</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h3 class="cell__title">Built for the whole country.</h3>
+    </article>
+
+    <article class="cell cell--02">
+      <p class="cell__no">[ 02</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M14 4 4 14M12 14H4V6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="cell__note">Help every UAE organisation become more secure and proactive.</p>
+      <h3 class="cell__title">Support from start to finish.</h3>
+    </article>
+
+    <article class="cell cell--03">
+      <p class="cell__no">[ 03</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h3 class="cell__title">Knowledge we keep.</h3>
+    </article>
+
+    <article class="cell cell--04">
+      <p class="cell__no">[ 04</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h3 class="cell__title">Always improving.</h3>
+    </article>
+
+    <div class="about__figure about__figure--stack">
+      <div class="about__dots" aria-hidden="true"></div>
+      <svg class="ico ico--stack" viewBox="0 0 210 150" fill="none" aria-hidden="true">
+        <g class="ico__slab" stroke="currentColor" stroke-width="1">
+          <path d="M14 88 96 41l84 47-82 47Z" />
+          <path d="M14 88v14l84 47v-14M180 88v14l-82 47" />
+        </g>
+        <g class="ico__lines" stroke="currentColor" stroke-width="1" opacity=".6">
+          <path d="M46 89 96 60" /><path d="M56 95 106 66" /><path d="M66 101 116 72" />
+          <path d="M76 107 126 78" /><path d="M86 113 136 84" /><path d="M96 119 146 90" />
+        </g>
+        <g class="ico__dial" stroke="currentColor" stroke-width="1">
+          <ellipse cx="104" cy="66" rx="30" ry="17" />
+          <path d="M104 55v22M84 66h40" opacity=".8" />
+        </g>
+        <g class="ico__tether" stroke="currentColor" stroke-width="1" opacity=".7">
+          <path d="M131 61 178 45" />
+        </g>
+        <g class="ico__node" stroke="currentColor" stroke-width="1">
+          <path d="M186 32l12 7v13l-12 7-12-7V39Z" />
+          <path d="m174 39 12 7 12-7M186 46v13" />
+        </g>
+        <g class="ico__spark ico__accent" stroke="currentColor" stroke-width="1.2">
+          <path d="M86 96 112 81" />
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="hiw" id="how-it-works">
+    <p class="hiw__tag">[ How it works ]</p>
+
+    <h2 class="hiw__title" data-letter-reveal>How it works. Discover, <br class="hiw__br" />launch, get results.</h2>
+
+    <p class="hiw__lede">From a real cyber need to a measurable outcome.</p>
+
+    <div class="hiw__steps">
+      <article class="step step--1">
+        <p class="step__no">[ 01</p>
+        <h3 class="step__title">Discover.</h3>
+        <p class="step__note">Explore trusted cyber capabilities and agents, or find the right solution for your challenge.</p>
+      </article>
+
+      <article class="step step--2">
+        <p class="step__no">[ 02</p>
+        <h3 class="step__title">Launch.</h3>
+        <p class="step__note">Select a capability, configure it and launch securely within the CyberFactory ecosystem.</p>
+      </article>
+
+      <article class="step step--3">
+        <p class="step__no">[ 03</p>
+        <h3 class="step__title">Get results.</h3>
+        <p class="step__note">See the outcome, track performance and turn what works into a capability that can be scaled.</p>
+      </article>
+    </div>
+
+    <!-- Timeline: a fixed rule of ticks, a lit portion that grows with scroll,
+         a travelling marker, and one drop line per step. -->
+    <div class="hiw__rail" aria-hidden="true">
+      <span class="hiw__drop hiw__drop--1"></span>
+      <span class="hiw__drop hiw__drop--2"></span>
+      <span class="hiw__drop hiw__drop--3"></span>
+      <div class="hiw__ticks"></div>
+      <div class="hiw__ticks hiw__ticks--lit"></div>
+      <span class="hiw__marker"></span>
+    </div>
+  </section>
+
+  <section class="kb" id="key-benefits">
+    <p class="kb__tag">[ Key benefits ]</p>
+
+    <h2 class="kb__title" data-letter-reveal>Why it matters. Build <br class="kb__br" />once. Protect many. <br class="kb__br" />Improve always.</h2>
+
+    <p class="kb__aside">Four things change when every agent your team uses runs in one place.</p>
+
+    <div class="kb__rules" aria-hidden="true">
+      <span class="rule rule--h rule--h1"></span>
+      <span class="rule rule--h rule--h2"></span>
+      <span class="rule rule--h rule--h3"></span>
+      <span class="rule rule--v rule--v1"></span>
+      <span class="rule rule--v rule--v2"></span>
+    </div>
+
+    <article class="kb__cell kb__cell--01">
+      <p class="cell__no">[ 01</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="cell__note" data-scroll-in>Accelerates response times and automates security triage to intercept threats before impact occurs.</p>
+      <h3 class="cell__title">Faster.</h3>
+    </article>
+
+    <article class="kb__cell kb__cell--02">
+      <p class="cell__no">[ 02</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="cell__note" data-scroll-in>Expands unified protective posture seamlessly across government entities and key national infrastructure.</p>
+      <h3 class="cell__title">Wider.</h3>
+    </article>
+
+    <article class="kb__cell kb__cell--03">
+      <p class="cell__no">[ 03</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M14 4 4 14M12 14H4V6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="cell__note" data-scroll-in>Leverages continuous learning loops to refine autonomous policy review and intelligence analysis.</p>
+      <h3 class="cell__title">Smarter.</h3>
+    </article>
+
+    <article class="kb__cell kb__cell--04">
+      <p class="cell__no">[ 04</p>
+      <svg class="cell__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <p class="cell__note" data-scroll-in>Ensures total technological independence and local ownership of cybersecurity capabilities.</p>
+      <h3 class="cell__title">Sovereign.</h3>
+    </article>
+  </section>
+
+  <!-- Tall track; the stage below pins to the viewport while the stack builds. -->
+  <div class="sbd-track" id="sovereign">
+    <div class="sbd-stage">
+      <section class="sbd">
+        <div class="sbd__head">
+          <p class="sbd__tag">[ Sovereign by design ]</p>
+          <h2 class="sbd__title"><span class="sbd__title-soft">Built in the UAE.</span><br />Built for the UAE.</h2>
+          <p class="sbd__lede">Keep knowledge, data and key tools under UAE control.</p>
+        </div>
+
+        <div class="sbd__body">
+          <div class="sbd__rails" aria-hidden="true">
+            <span class="sbd__rail sbd__rail--l"></span>
+            <span class="sbd__rail sbd__rail--r"></span>
+          </div>
+
+          <!-- Left column -->
+          <div class="sbd__copy sbd__copy--1">
+            <p class="sbd__no">[ 01</p>
+            <h3 class="sbd__name">UAE-owned &amp; hosted.</h3>
+            <p class="sbd__desc">Built and hosted in the UAE, keeping critical capabilities and data under national control.</p>
+          </div>
+
+          <!-- Right column -->
+          <div class="sbd__copy sbd__copy--2">
+            <p class="sbd__no">[ 02</p>
+            <h3 class="sbd__name">Vendor-agnostic.</h3>
+            <p class="sbd__desc">Designed to work across vendors without dependence on a single provider.</p>
+          </div>
+
+          <!-- Left column -->
+          <div class="sbd__copy sbd__copy--3">
+            <p class="sbd__no">[ 03</p>
+            <h3 class="sbd__name">Trusted nationally.</h3>
+            <p class="sbd__desc">Hosted by the UAE Cybersecurity Council, reinforcing trust, security and national oversight.</p>
+          </div>
+
+          <!-- Centre column: one stack, a slab added per step, always from above -->
+          <div class="sbd__panel">
+            <svg class="slabs" viewBox="0 0 320 301" fill="none" aria-hidden="true">
+              <defs>
+                <!-- One slab, traced off the "icon component" frame: top face
+                     300 x 174, 31 of thickness. Filled so it hides the slab
+                     beneath it. -->
+                <g id="sbdSlab" stroke="currentColor" stroke-width="1">
+                  <path d="M10 99v31l150 87 150-87V99l-150 87Z" fill="#0c0c0c" />
+                  <path d="M160 12 310 99 160 186 10 99Z" fill="#0a0a0a" />
+                </g>
+              </defs>
+
+              <!-- Base first; each new slab lands on top of it and in front. -->
+              <use class="slab slab--1" href="#sbdSlab" y="96" />
+              <use class="slab slab--2" href="#sbdSlab" y="48" />
+              <use class="slab slab--3" href="#sbdSlab" y="0" />
+            </svg>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="fa" id="featured">
+    <p class="fa__tag">[ Featured agents ]</p>
+
+    <h2 class="fa__title" data-letter-reveal>Start with these. <br class="fa__br" />The agents teams <br class="fa__br" />reach for most often.</h2>
+
+    <p class="fa__note">A growing portfolio of cyber capabilities.</p>
+
+    <div class="fa__rules" aria-hidden="true">
+      <span class="rule rule--h rule--h1"></span>
+      <span class="rule rule--h rule--h2"></span>
+      <span class="rule rule--h rule--h3"></span>
+      <span class="rule rule--h rule--h4"></span>
+      <span class="rule rule--v rule--v1"></span>
+      <span class="rule rule--v rule--v2"></span>
+    </div>
+
+    <a class="agent agent--1" href="#">
+      <p class="agent__no">[ 01</p>
+      <svg class="agent__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="ui" aria-hidden="true">
+        <div class="ui__side">
+          <div class="ui__brand"><span class="ui__mark"></span>Arabify</div>
+          <span class="ui__item ui__item--on">Translate</span>
+          <span class="ui__item">Reword</span>
+          <span class="ui__item">Rewrite for tone</span>
+          <span class="ui__item">Glossary</span>
+          <span class="ui__item">History</span>
+        </div>
+        <div class="ui__main">
+          <div class="ui__bar"><span class="ui__pill">Arabic</span><span class="ui__chev"></span><span class="ui__pill">English</span></div>
+          <p class="ui__h">Translate</p>
+          <p class="ui__sub">Paste or write a document to translate into clear, audience-appropriate language.</p>
+          <div class="ui__field"></div>
+        </div>
+      </div>
+      <p class="agent__desc">Translates complex cybersecurity content into clear, audience-friendly language for different audiences.</p>
+      <h3 class="agent__name">Arabify.</h3>
+    </a>
+
+    <a class="agent agent--2" href="#">
+      <p class="agent__no">[ 02</p>
+      <svg class="agent__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="ui" aria-hidden="true">
+        <div class="ui__side">
+          <div class="ui__brand"><span class="ui__mark"></span>Brand Guard</div>
+          <span class="ui__item ui__item--on">Dashboard</span>
+          <span class="ui__item">Mentions</span>
+          <span class="ui__item">Look-alikes</span>
+          <span class="ui__item">Reports</span>
+          <span class="ui__item">Settings</span>
+        </div>
+        <div class="ui__main">
+          <div class="ui__bar"><span class="ui__pill">Last 7 days</span><span class="ui__grow"></span><span class="ui__pill">Export</span></div>
+          <p class="ui__h">Dashboard</p>
+          <div class="ui__cells"><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+      <p class="agent__desc">Monitors and protects your digital brand presence, helping identify potential misuse and emerging risks.</p>
+      <h3 class="agent__name">Brand Guard.</h3>
+    </a>
+
+    <a class="agent agent--3" href="#">
+      <p class="agent__no">[ 03</p>
+      <svg class="agent__arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M4 14 14 4M6 4h8v8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="ui" aria-hidden="true">
+        <div class="ui__side">
+          <div class="ui__brand"><span class="ui__mark"></span>Policy Review</div>
+          <span class="ui__item ui__item--on">Documents</span>
+          <span class="ui__item">Findings</span>
+          <span class="ui__item">Standards</span>
+          <span class="ui__item">Approvals</span>
+          <span class="ui__item">Archive</span>
+        </div>
+        <div class="ui__main">
+          <div class="ui__bar"><span class="ui__pill">Upload</span><span class="ui__grow"></span><span class="ui__pill ui__pill--go">Review</span></div>
+          <p class="ui__h">Documents</p>
+          <p class="ui__sub">Checks a policy against the standards it has to meet and flags the gaps.</p>
+          <div class="ui__rows"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+      <p class="agent__desc">Reviews policy documents against the standards they must meet and reports what needs attention.</p>
+      <h3 class="agent__name">Policy Review.</h3>
+    </a>
+
+    <a class="fa__browse" href="#">Browse all
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+  </section>
+
+  <script src="scripts/letter-reveal.js?v=9" defer></script>
+  <script src="scripts/hero.js?v=9" defer></script>
+  <script src="scripts/about.js?v=9" defer></script>
+  <script src="scripts/how-it-works.js?v=9" defer></script>
+  <script src="scripts/scroll-in.js?v=9" defer></script>
+  <script src="scripts/sovereign.js?v=9" defer></script>
+</body>
+</html>

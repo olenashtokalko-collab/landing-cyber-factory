@@ -1,0 +1,695 @@
+/* ---------------------------------------------------------------------------
+   Hero — Figma frame "Concept — Desktop / Hero" (1440 x 850)
+   Every numeric literal below is a design pixel from that frame, multiplied by
+   --k so the section stays proportional at any width.
+   --------------------------------------------------------------------------- */
+
+.hero {
+  position: sticky;
+  top: 0;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  height: calc(var(--frame-h) * var(--k));
+  min-height: calc(620 * var(--k));
+  background: var(--c-void);
+}
+
+/* --- Backdrop ------------------------------------------------------------ */
+
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Reveal layer (load) and camera layer (pointer + scroll) are kept apart so a
+   keyframed transform never fights a live one. Both are identity at rest. */
+.hero__scene,
+.hero__camera {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__camera {
+  transform:
+    translate3d(
+      calc(var(--mx) * var(--cam-x) * -1px),
+      calc(var(--my) * var(--cam-y) * -1px + var(--sp) * var(--cam-drift) * 1px),
+      0
+    )
+    scale(calc(1 + var(--sp) * 0.04));
+  will-change: transform;
+}
+
+/* Warm light pooling behind the skyline, dying out towards the top edge and
+   the very bottom of the frame. */
+.hero__glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      118% 42% at 50% 70%,
+      rgba(var(--c-glow), 0.30) 0%,
+      rgba(var(--c-glow), 0.17) 44%,
+      rgba(var(--c-glow), 0.06) 70%,
+      rgba(var(--c-glow), 0) 88%
+    ),
+    radial-gradient(
+      170% 26% at 50% 62%,
+      rgba(var(--c-glow), 0.16) 0%,
+      rgba(var(--c-glow), 0.07) 46%,
+      rgba(var(--c-glow), 0) 84%
+    );
+}
+
+.hero__skyline {
+  position: absolute;
+  inset: 0;
+  /* Sized as a container so the skyline can be laid out in design pixels
+     that follow the frame's width rather than the viewport's. */
+  container-type: size;
+}
+
+/* One render, six placements. --w is the width in design px; the height comes
+   from the asset's own 612 x 985 ratio so nothing has to be restated. */
+.monolith {
+  /* One design pixel of the skyline. It tracks the frame's width, and stops
+     growing past 1800px so the mass never climbs over the wordmark. */
+  --u: min(100cqw / 1440, 1.25px);
+  --w: 300;
+  --drop: 40;   /* how far the base sits below the frame edge */
+  --soften: 0;  /* depth-of-field blur */
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  bottom: calc(var(--drop) * -1 * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: auto;
+  filter: blur(calc(var(--soften) * var(--u)));
+}
+
+.monolith--near-l { --x: -120; --w: 1000; --drop: 1140; }
+.monolith--near-r { --x:  560; --w: 1000; --drop: 1140; transform: scaleX(-1); }
+.monolith--far-l  { --x: -260; --w:  700; --drop:  726; --soften: 2.5; }
+.monolith--far-r  { --x: 1000; --w:  700; --drop:  726; --soften: 2.5; transform: scaleX(-1); }
+
+/* Darkens the outer thirds and the base so the skyline reads as one mass. */
+.hero__falloff {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 78%, rgba(0, 0, 0, 0.34) 100%),
+    linear-gradient(180deg, var(--c-void) 0%, rgba(0, 0, 0, 0.88) 16%, rgba(0, 0, 0, 0) 44%),
+    linear-gradient(0deg, var(--c-void) 0%, rgba(0, 0, 0, 0.78) 9%, rgba(0, 0, 0, 0.3) 20%, rgba(0, 0, 0, 0) 34%);
+}
+
+/* --- Hairlines ---------------------------------------------------------- */
+
+.hero__rules {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__rule {
+  position: absolute;
+  top: calc(311 * var(--k));
+  height: 1px;
+  width: calc(337 * var(--k));
+}
+
+.hero__rule--l {
+  left: 0;
+  background: linear-gradient(90deg, var(--c-hairline), rgba(255, 255, 255, 0));
+}
+
+.hero__rule--r {
+  right: 0;
+  background: linear-gradient(270deg, var(--c-hairline), rgba(255, 255, 255, 0));
+}
+
+/* --- Top bar ------------------------------------------------------------ */
+
+/* Topbar — properties lifted from the app shell's own header: a three-column
+   grid with the search boxed in the middle, 72 tall, transparent over the
+   hero and glassed once the page moves under it. */
+.topbar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, calc(400 * var(--k))) 1fr;
+  align-items: center;
+  gap: calc(20 * var(--k));
+  height: calc(72 * var(--k));
+  border-bottom: 1px solid transparent;
+  transition: background 250ms linear, border-color 250ms linear;
+}
+
+.topbar.is-stuck {
+  background: rgba(12, 12, 12, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: #1f1f1e;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8 * var(--k));
+  justify-self: start;
+}
+
+.brand__mark {
+  font-size: calc(21 * var(--k));
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.brand__name {
+  font-size: calc(12 * var(--k));
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(9 * var(--k));
+  width: 100%;
+  height: calc(36 * var(--k));
+  padding-inline: calc(16 * var(--k));
+  border: 1px solid transparent;
+  border-radius: calc(2 * var(--k));
+  background: rgba(255, 255, 255, 0.035);
+  transition:
+    background 150ms cubic-bezier(0.12, 0.23, 0.5, 1),
+    border-color 150ms cubic-bezier(0.12, 0.23, 0.5, 1);
+}
+
+.search:hover,
+.search:focus-within { background: rgba(255, 255, 255, 0.075); }
+
+.search__icon {
+  flex: 0 0 auto;
+  width: calc(16 * var(--k));
+  height: calc(16 * var(--k));
+  color: var(--c-ink-45);
+  pointer-events: none;
+}
+
+.search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: none;
+  font-size: calc(14 * var(--k));
+  color: var(--c-ink);
+}
+
+.search__input::placeholder { color: var(--c-ink-45); }
+.search__input:focus-visible { outline: none; }
+.search__input::-webkit-search-cancel-button { display: none; }
+
+.utility {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(3 * var(--k));
+}
+
+.utility__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--k));
+  height: calc(36 * var(--k));
+  border-radius: calc(8 * var(--k));
+  color: #a3a3a3;
+  transition: background 150ms linear, color 150ms linear;
+}
+
+.utility__btn:hover,
+.utility__btn:focus-visible {
+  background: rgba(255, 255, 255, 0.075);
+  color: #fafafa;
+}
+
+.utility__btn svg {
+  width: calc(17 * var(--k));
+  height: calc(17 * var(--k));
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: calc(32 * var(--k));
+  height: calc(32 * var(--k));
+  margin-left: calc(5 * var(--k));
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: calc(11 * var(--k));
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* --- Stage -------------------------------------------------------------- */
+
+.hero__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero__stage > * { pointer-events: auto; }
+
+.ticker {
+  position: absolute;
+  top: calc(142 * var(--k));
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(7 * var(--k));
+  height: calc(28 * var(--k));
+  padding-inline: calc(14 * var(--k));
+  border: 1px solid var(--c-hairline);
+  border-radius: calc(4 * var(--k));
+  background: var(--c-surface-soft);
+  font-family: var(--font-mono);
+  font-size: calc(14 * var(--k));
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.ticker__label { color: var(--c-ink-55); }
+.ticker__value { color: var(--c-ink); }
+
+.ticker__arrow {
+  width: calc(13 * var(--k));
+  height: calc(13 * var(--k));
+  margin-left: calc(1 * var(--k));
+}
+
+.hero__title {
+  position: absolute;
+  top: calc(187 * var(--k));
+  inset-inline: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hero__title-main {
+  font-size: calc(220 * var(--k));
+  letter-spacing: -0.005em;
+}
+
+/* Tucked against the wordmark's right side; the negative right margin keeps
+   "Cyber" itself optically centred in the frame, as in the design. */
+.hero__title-sub {
+  font-size: calc(41 * var(--k));
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  /* In em, so the tuck and the optical centring of "Cyber" hold at any size. */
+  margin-left: -0.293em;
+  margin-right: -3.244em;
+}
+
+.hero__tagline {
+  position: absolute;
+  top: calc(642 * var(--k));
+  inset-inline: 0;
+  text-align: center;
+  font-size: calc(22 * var(--k));
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.007em;
+}
+
+/* An arrow over a label, in place of the old boxed button. Only the arrow
+   moves, so the wrapper stays free for the entrance animation's transform. */
+.hero__scroll {
+  position: absolute;
+  top: calc(704 * var(--k));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(22 * var(--k));
+  color: #efefef;
+  white-space: nowrap;
+}
+
+.hero__scroll-arrow {
+  display: block;
+  animation: hero-arrow-bob 2000ms linear infinite;
+}
+
+.hero__scroll-arrow svg {
+  display: block;
+  width: calc(18 * var(--k));
+  height: calc(22 * var(--k));
+}
+
+.hero__scroll-label {
+  font-size: calc(16 * var(--k));
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.004em;
+}
+
+/* Two turning points, not four, and a constant speed between them: the arrow
+   sweeps from top to bottom and back without ever settling mid-travel. */
+@keyframes hero-arrow-bob {
+  0%,
+  100% { transform: translate3d(0, calc(-5 * var(--k)), 0); }
+  50% { transform: translate3d(0, calc(5 * var(--k)), 0); }
+}
+
+/* --- Below the design's breakpoint -------------------------------------- */
+/* The file has no mobile frame, so nothing new is introduced here: the same
+   elements reflow into a column, the display type moves onto a fluid ramp, and
+   the skyline stays anchored to the bottom edge. */
+
+@media (max-width: 1023px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+    height: 64px;
+  }
+
+  /* As in the reference, the first three tools drop away when space is tight. */
+  .utility { gap: 2px; }
+  .utility__btn { width: 36px; height: 36px; border-radius: 8px; }
+  .utility__btn svg { width: 17px; height: 17px; }
+  .utility__btn:nth-child(-n + 3) { display: none; }
+  .avatar { width: 32px; height: 32px; margin-left: 4px; }
+
+  /* The hero no longer carries the bar in its flow, so it makes room for it. */
+  .hero { padding-top: 64px; }
+
+  .brand__mark { font-size: clamp(18px, 4.6vw, 21px); }
+  .brand__name { font-size: clamp(9px, 2.4vw, 12px); }
+
+  .search {
+    width: 100%;
+    height: 36px;
+    padding-inline: 12px;
+    gap: 8px;
+    border-radius: 2px;
+  }
+
+  .search__icon { width: 16px; height: 16px; }
+  .search__input { font-size: 14px; }
+
+  .utility { gap: clamp(13px, 3.4vw, 22px); }
+  .utility__btn { width: 18px; height: 18px; }
+
+  .avatar {
+    width: clamp(28px, 6.6vw, 32px);
+    height: clamp(28px, 6.6vw, 32px);
+    margin-left: clamp(-2px, -0.4vw, 0px);
+    font-size: clamp(11px, 2.8vw, 13px);
+  }
+
+  .hero__stage {
+    position: relative;
+    inset: auto;
+    z-index: 2;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-block: clamp(40px, 9vw, 120px) clamp(170px, 42vw, 380px);
+    padding-inline: var(--gutter-m);
+  }
+
+  .hero__stage > * {
+    position: relative;
+    top: auto;
+    left: auto;
+    inset-inline: auto;
+    transform: none;
+  }
+
+  .ticker {
+    height: clamp(26px, 6vw, 30px);
+    padding-inline: clamp(10px, 2.8vw, 14px);
+    gap: clamp(5px, 1.6vw, 7px);
+    border-radius: 4px;
+    font-size: clamp(10px, 2.6vw, 14px);
+  }
+
+  .ticker__arrow { width: 1em; height: 1em; }
+
+  .hero__title {
+    margin-top: clamp(24px, 7vw, 56px);
+    max-width: 100%;
+  }
+
+  .hero__title-main { font-size: clamp(60px, 15.6vw, 220px); }
+  .hero__title-sub { font-size: clamp(11px, 2.9vw, 41px); }
+
+  .hero__tagline {
+    margin-top: clamp(18px, 5.6vw, 40px);
+    max-width: 28ch;
+    font-size: clamp(15px, 3.9vw, 22px);
+    line-height: 1.34;
+    letter-spacing: -0.004em;
+    text-wrap: balance;
+  }
+
+  .hero__scroll {
+    margin-top: clamp(28px, 8vw, 56px);
+    width: auto;
+    height: auto;
+    gap: clamp(14px, 3.4vw, 22px);
+  }
+
+  .hero__scroll-arrow svg { width: clamp(15px, 3.8vw, 18px); height: clamp(18px, 4.6vw, 22px); }
+  .hero__scroll-label { font-size: clamp(13px, 3.4vw, 16px); }
+
+  /* The hairlines sit against a wordmark that no longer spans the frame. */
+  .hero__rules { display: none; }
+
+  /* Skyline: same arrangement, read against a narrower notional frame so the
+     mass keeps a sensible share of a portrait viewport. */
+  .monolith { --u: calc(100cqw / 880); }
+
+  .monolith--near-l { --x: -120; --w: 1000; --drop: 1140; }
+  .monolith--near-r { --x:  480; --w: 1000; --drop: 1140; }
+  .monolith--far-l  { --x: -230; --w:  700; --drop:  726; }
+  .monolith--far-r  { --x:  410; --w:  700; --drop:  726; }
+
+  .hero__glow {
+    background:
+      radial-gradient(
+        150% 26% at 50% 92%,
+        rgba(var(--c-glow), 0.30) 0%,
+        rgba(var(--c-glow), 0.17) 42%,
+        rgba(var(--c-glow), 0.05) 70%,
+        rgba(var(--c-glow), 0) 88%
+      ),
+      radial-gradient(
+        230% 16% at 50% 84%,
+        rgba(var(--c-glow), 0.15) 0%,
+        rgba(var(--c-glow), 0) 84%
+      );
+  }
+
+  .hero__falloff {
+    background:
+      linear-gradient(180deg, var(--c-void) 0%, rgba(0, 0, 0, 0.9) 22%, rgba(0, 0, 0, 0) 60%),
+      linear-gradient(0deg, var(--c-void) 0%, rgba(0, 0, 0, 0.72) 6%, rgba(0, 0, 0, 0.24) 15%, rgba(0, 0, 0, 0) 28%);
+  }
+}
+
+/* Phone: the skyline is read against a narrower frame again so the mass keeps
+   its share of a portrait screen. */
+@media (max-width: 640px) {
+  .monolith { --u: calc(100cqw / 660); }
+
+  .hero__stage {
+    padding-block: clamp(40px, 13vw, 72px) clamp(140px, 36vw, 200px);
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Motion
+   --------------------------------------------------------------------------- */
+
+@property --sp { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --mx { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --my { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+.hero {
+  --sp: 0;          /* scroll progress out of the hero, 0 → 1 */
+  --mx: 0;          /* pointer offset from centre, -1 → 1 */
+  --my: 0;
+  --cam-x: 18;      /* px the scene counter-travels at full deflection */
+  --cam-y: 12;
+  --cam-drift: -18; /* px the scene travels over the transition — deliberately
+                       less than the foreground's -34, so it reads as slower
+                       than the page rather than pinned to it */
+}
+
+/* --- On scroll ---------------------------------------------------------- */
+/* The hero is pinned, so the scene is already slower than the page; the lag
+   and the push-in above just make that legible. The foreground recedes. */
+
+.hero__stage,
+.hero__rules {
+  opacity: calc(1 - var(--sp) * 1.45);
+  transform: translate3d(0, calc(var(--sp) * -34px), 0);
+}
+
+/* Once the next section has taken over, stop swallowing clicks. */
+.hero[data-passed="true"] .hero__stage { pointer-events: none; }
+
+/* The section that covers the hero. */
+.beyond {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  background: #0a0a0a;
+}
+
+/* --- On load ------------------------------------------------------------ */
+/* Gated on .js so the hero is never left hidden if the script does not run. */
+
+.js body:not(.hero-revealed) .brand,
+.js body:not(.hero-revealed) .search,
+.js body:not(.hero-revealed) .utility,
+.js .hero:not(.is-revealed) .hero__scene,
+.js .hero:not(.is-revealed) .hero__glow,
+.js .hero:not(.is-revealed) .hero__rule,
+.js .hero:not(.is-revealed) .ticker,
+.js .hero:not(.is-revealed) .hero__title,
+.js .hero:not(.is-revealed) .hero__tagline,
+.js .hero:not(.is-revealed) .hero__scroll {
+  opacity: 0;
+}
+
+@keyframes hero-emerge {
+  from { opacity: 0; transform: scale(1.075); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hero-warm {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes hero-focus {
+  from { opacity: 0; transform: translate3d(0, 26px, 0); filter: blur(11px); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes hero-draw {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+.hero.is-revealed .hero__scene {
+  animation: hero-emerge 1900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The light warms up a beat after the mass resolves. */
+.hero.is-revealed .hero__glow {
+  animation: hero-warm 1700ms var(--ease-out) 320ms both;
+}
+
+body.hero-revealed .brand     { animation: hero-rise  900ms var(--ease-out)  550ms both; }
+body.hero-revealed .search    { animation: hero-rise  900ms var(--ease-out)  640ms both; }
+body.hero-revealed .utility   { animation: hero-rise  900ms var(--ease-out)  720ms both; }
+.hero.is-revealed .hero__rule { animation: hero-draw 1200ms var(--ease-out)  800ms both; }
+.hero.is-revealed .ticker     { animation: hero-rise  900ms var(--ease-out)  900ms both; }
+.hero.is-revealed .hero__title{ animation: hero-focus 1200ms var(--ease-out) 1020ms both; }
+.hero.is-revealed .hero__tagline { animation: hero-rise 900ms var(--ease-out) 1250ms both; }
+.hero.is-revealed .hero__scroll  { animation: hero-rise 900ms var(--ease-out) 1400ms both; }
+
+.hero__rule--l { transform-origin: left center; }
+.hero__rule--r { transform-origin: right center; }
+
+/* On desktop the search, ticker and scroll button are centred with
+   translateX(-50%), so they need a variant that carries it. */
+@keyframes hero-rise-centred {
+  from { opacity: 0; transform: translate3d(-50%, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(-50%, 0, 0); }
+}
+
+@media (min-width: 1024px) {
+  .hero.is-revealed .ticker,
+  .hero.is-revealed .hero__scroll {
+    animation-name: hero-rise-centred;
+  }
+}
+
+/* --- Reduced motion ----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .js body:not(.hero-revealed) .brand,
+.js body:not(.hero-revealed) .search,
+.js body:not(.hero-revealed) .utility,
+.js .hero:not(.is-revealed) .hero__scene,
+  .js .hero:not(.is-revealed) .hero__glow,
+  .js .hero:not(.is-revealed) .brand,
+  .js .hero:not(.is-revealed) .search,
+  .js .hero:not(.is-revealed) .utility,
+  .js .hero:not(.is-revealed) .hero__rule,
+  .js .hero:not(.is-revealed) .ticker,
+  .js .hero:not(.is-revealed) .hero__title,
+  .js .hero:not(.is-revealed) .hero__tagline,
+  .js .hero:not(.is-revealed) .hero__scroll {
+    opacity: 1;
+  }
+
+  .hero.is-revealed .hero__scene,
+  .hero.is-revealed .hero__glow,
+  .hero.is-revealed .brand,
+  .hero.is-revealed .search,
+  .hero.is-revealed .utility,
+  .hero.is-revealed .hero__rule,
+  .hero.is-revealed .ticker,
+  .hero.is-revealed .hero__title,
+  .hero.is-revealed .hero__tagline,
+  .hero.is-revealed .hero__scroll {
+    animation: hero-warm 400ms linear both;
+  }
+
+  .hero__camera { transform: none; }
+
+  /* The arrow holds still. */
+  .hero__scroll-arrow { animation: none; transform: none; }
+
+  .hero__stage,
+  .hero__rules { transform: none; }
+}

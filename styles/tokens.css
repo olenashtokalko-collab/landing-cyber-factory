@@ -1,0 +1,52 @@
+/* ---------------------------------------------------------------------------
+   Design tokens — derived from the Figma frame "Concept — Desktop" (1440 x 850)
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Unit scale.
+     `--k` is one design pixel. At viewports >= 1440px it equals exactly 1px,
+     so the desktop rendering is 1:1 with the Figma frame; below that it
+     shrinks proportionally, keeping every ratio of the composition intact. */
+  --k: min(1px, 100vw / 1440);
+
+  /* Frame */
+  --frame-w: 1440;
+  --frame-h: 850;
+  --gutter: calc(48 * var(--k));
+  --gutter-m: clamp(20px, 5.2vw, 40px);
+
+  /* Colour */
+  --c-void: #000000;
+  --c-ink: #ffffff;
+  --c-ink-70: rgba(255, 255, 255, 0.7);
+  --c-ink-55: rgba(255, 255, 255, 0.55);
+  --c-ink-45: rgba(255, 255, 255, 0.45);
+  --c-hairline: rgba(255, 255, 255, 0.16);
+  --c-surface: rgba(255, 255, 255, 0.06);
+  --c-surface-soft: rgba(255, 255, 255, 0.03);
+
+  /* Warm light of the monolith render */
+  --c-glow: 202, 170, 126;
+
+  /* About us surface — a hair above the hero's black */
+  --c-surface-2: #0a0a0a;
+  --c-ink-mute: rgba(255, 255, 255, 0.42);
+  --c-amber: #a2916f;
+  --c-rule: rgba(255, 255, 255, 0.13);
+
+  /* Type */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Motion (used from the animation pass onwards) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* A damped spring, sampled from the reference's own easing curve. */
+  --ease-spring: linear(
+    0 0%, 0.1541 4.5%, 0.3512 9%, 0.5081 13.5%, 0.6275 18%, 0.718 22.5%,
+    0.7865 27%, 0.8384 31.5%, 0.8777 36%, 0.9074 40.4%, 0.9299 44.9%,
+    0.9469 49.4%, 0.9598 53.9%, 0.9696 58.4%, 0.977 62.9%, 0.9826 67.4%,
+    0.9868 71.9%, 0.99 76.4%, 0.9924 80.9%, 0.9943 85.4%, 0.9957 89.9%,
+    0.9967 94.4%, 1 100%
+  );
+}

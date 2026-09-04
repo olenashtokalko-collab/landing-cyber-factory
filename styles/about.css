@@ -1,0 +1,344 @@
+/* ---------------------------------------------------------------------------
+   About us — Figma frame "Concept — Desktop / About us" (1440 x 1766)
+   Same convention as the hero: every literal is a design pixel x --k.
+   --------------------------------------------------------------------------- */
+
+.about {
+  position: relative;
+  z-index: 1;                 /* rides over the pinned hero */
+  height: calc(1766 * var(--k));
+  background: var(--c-surface-2);
+  overflow: hidden;
+}
+
+/* --- Section tag --------------------------------------------------------- */
+
+.about__tag {
+  position: absolute;
+  top: calc(324 * var(--k));
+  right: var(--gutter);
+  display: flex;
+  align-items: center;
+  height: calc(24 * var(--k));
+  padding-inline: calc(10 * var(--k));
+  border: 1px solid var(--c-rule);
+  border-radius: calc(3 * var(--k));
+  font-family: var(--font-mono);
+  font-size: calc(10 * var(--k));
+  letter-spacing: 0.02em;
+  color: var(--c-ink-55);
+  white-space: nowrap;
+}
+
+/* --- Statement + copy ---------------------------------------------------- */
+/* Both start on the frame's centre line, as in the design. */
+
+.about__lede {
+  position: absolute;
+  top: calc(316 * var(--k));
+  left: calc(720 * var(--k));
+  width: calc(600 * var(--k));
+}
+
+.about__title {
+  font-size: calc(36 * var(--k));
+  line-height: calc(46 * var(--k));
+  font-weight: 400;
+  letter-spacing: 0.001em;
+  color: var(--c-ink);
+}
+
+.about__copy {
+  margin-top: calc(101 * var(--k));
+  width: calc(292 * var(--k));
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--k));
+  color: var(--c-ink-mute);
+  font-size: calc(15 * var(--k));
+  line-height: calc(22 * var(--k));
+  letter-spacing: -0.002em;
+}
+
+/* --- Figures ------------------------------------------------------------- */
+
+.about__figure {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  color: var(--c-ink-70);
+}
+
+.about__figure--node {
+  left: calc(219 * var(--k));
+  top: calc(477 * var(--k));
+  width: calc(290 * var(--k));
+  height: calc(187 * var(--k));
+}
+
+.about__figure--stack {
+  left: calc(682 * var(--k));
+  top: calc(1340 * var(--k));
+  width: calc(246 * var(--k));
+  height: calc(176 * var(--k));
+}
+
+.ico {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* The amber marks the design uses to pick out one node per figure. */
+.ico__accent { color: var(--c-amber); }
+
+/* Faint measuring grid sitting behind each figure. */
+.about__dots {
+  position: absolute;
+  inset: calc(-90 * var(--k)) calc(-120 * var(--k));
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: calc(21 * var(--k)) calc(21 * var(--k));
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 76%);
+  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 76%);
+}
+
+/* --- Grid rules ---------------------------------------------------------- */
+
+.rule {
+  position: absolute;
+  background: var(--c-rule);
+}
+
+.rule--h { height: 1px; }
+.rule--v { width: 1px; }
+
+/* Only the right-hand cell shows a top rule; the intro sits open above. */
+.rule--h1 { top: calc(546 * var(--k));  left: calc(1062 * var(--k)); right: var(--gutter); }
+.rule--h2 { top: calc(893 * var(--k));  left: var(--gutter); right: var(--gutter); }
+.rule--h3 { top: calc(1240 * var(--k)); left: var(--gutter); right: var(--gutter); }
+.rule--h4 { top: calc(1587 * var(--k)); left: var(--gutter); right: var(--gutter); }
+
+.rule--v1 { left: calc(554 * var(--k));  top: calc(893 * var(--k)); height: calc(694 * var(--k)); }
+.rule--v2 { left: calc(1062 * var(--k)); top: calc(546 * var(--k)); height: calc(1041 * var(--k)); }
+
+/* --- Cells --------------------------------------------------------------- */
+
+.cell {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: calc(347 * var(--k));
+  padding: calc(58 * var(--k)) calc(28 * var(--k)) calc(53 * var(--k));
+}
+
+.cell--01 { left: calc(1062 * var(--k)); top: calc(546 * var(--k));  width: calc(330 * var(--k)); }
+.cell--02 { left: calc(554 * var(--k));  top: calc(893 * var(--k));  width: calc(508 * var(--k)); }
+.cell--03 { left: var(--gutter);         top: calc(1240 * var(--k)); width: calc(506 * var(--k)); }
+.cell--04 { left: calc(1062 * var(--k)); top: calc(1240 * var(--k)); width: calc(330 * var(--k)); }
+
+.cell__no {
+  font-family: var(--font-mono);
+  font-size: calc(13 * var(--k));
+  letter-spacing: 0.08em;
+  color: var(--c-amber);
+  line-height: 1;
+}
+
+.cell__arrow {
+  position: absolute;
+  top: calc(45 * var(--k));
+  right: calc(28 * var(--k));
+  width: calc(18 * var(--k));
+  height: calc(18 * var(--k));
+  color: var(--c-ink-70);
+}
+
+/* Copy is anchored to the foot of the cell. */
+.cell__note {
+  margin-top: auto;
+  max-width: calc(390 * var(--k));
+  color: var(--c-ink-mute);
+  font-size: calc(15 * var(--k));
+  line-height: calc(22 * var(--k));
+}
+
+.cell__title {
+  font-size: calc(30 * var(--k));
+  line-height: calc(37 * var(--k));
+  font-weight: 400;
+  letter-spacing: -0.002em;
+  color: var(--c-ink);
+  margin-top: auto;
+}
+
+.cell__note ~ .cell__title { margin-top: calc(24 * var(--k)); }
+
+/* ---------------------------------------------------------------------------
+   Motion
+   --------------------------------------------------------------------------- */
+
+/* --- Figures: the parts fly in once and stay ----------------------------- */
+/* Each part starts small and offset along its own axis, then settles into
+   place. Per-part delays make the icon assemble as a wave rather than all at
+   once. It runs a single time and holds; nothing scatters again afterwards. */
+
+@keyframes ico-assemble {
+  from {
+    transform: scale(0.4) translate(var(--dx, 0px), var(--dy, 0px));
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.about__figure .ico > g {
+  opacity: 0;
+}
+
+/* Plays once, the first time the figure comes into view, and holds. */
+.about__figure.is-live .ico > g {
+  animation: ico-assemble 900ms var(--d, 0ms) 1 both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Node icon — the four satellites pull in along their own axes. */
+.ico__orbit   { --d: 0ms;   --dx: 0px;   --dy: 0px; }
+.ico__rings   { --d: 60ms;  --dx: 0px;   --dy: 6px; }
+.ico__axes    { --d: 120ms; --dx: 0px;   --dy: -4px; }
+.ico__node--n { --d: 190ms; --dx: 0px;   --dy: -22px; }
+.ico__node--e { --d: 240ms; --dx: 26px;  --dy: 0px; }
+.ico__node--w { --d: 240ms; --dx: -26px; --dy: 0px; }
+.ico__node--s { --d: 290ms; --dx: 0px;   --dy: 22px; }
+.ico__core    { --d: 340ms; --dx: 0px;   --dy: 0px; }
+
+/* Stack icon — the tethered cube travels furthest, as in the reference. */
+.ico__slab   { --d: 0ms;   --dx: 0px;   --dy: 10px; }
+.ico__lines  { --d: 80ms;  --dx: -8px;  --dy: 6px; }
+.ico__dial   { --d: 160ms; --dx: 4px;   --dy: -10px; }
+.ico__tether { --d: 230ms; --dx: 14px;  --dy: -8px; }
+.ico--stack .ico__node { --d: 290ms; --dx: 22px; --dy: -16px; }
+.ico__spark  { --d: 350ms; --dx: -6px;  --dy: 4px; }
+
+.about__dots {
+  opacity: 0;
+  transition: opacity 1100ms var(--ease-spring);
+}
+
+.about__figure.is-in .about__dots { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about__figure .ico > g,
+  .about__figure.is-live .ico > g,
+  .about__figure .about__dots {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+
+}
+
+/* --- Below the design's breakpoint -------------------------------------- */
+/* No mobile frame exists, so the absolute composition unwinds into a column
+   and the rules become dividers between the stacked cells. */
+
+@media (max-width: 1023px) {
+  .about {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(72px, 14vw, 132px) var(--gutter-m);
+  }
+
+  .about__tag {
+    position: static;
+    order: 1;
+    height: 26px;
+    padding-inline: 10px;
+    border-radius: 3px;
+    font-size: 11px;
+  }
+
+  .about__lede {
+    position: static;
+    order: 2;
+    width: 100%;
+    margin-top: clamp(28px, 6vw, 48px);
+  }
+
+  .about__br { display: none; }
+
+  .about__title {
+    max-width: 20ch;
+    font-size: clamp(28px, 6.2vw, 44px);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+
+  .about__copy {
+    width: 100%;
+    max-width: 52ch;
+    margin-top: clamp(26px, 6vw, 44px);
+    gap: clamp(16px, 3.4vw, 24px);
+    font-size: clamp(14px, 3.6vw, 16px);
+    line-height: 1.55;
+  }
+
+  .about__figure {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(300px, 76vw);
+    height: auto;
+    aspect-ratio: 248 / 160;
+    margin: clamp(40px, 9vw, 72px) auto;
+    align-self: center;
+  }
+
+  .about__figure--stack { aspect-ratio: 210 / 150; order: 7; }
+  .about__figure--node { order: 3; }
+
+  .about__rules { display: none; }
+
+  .cell {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: clamp(26px, 6vw, 40px) 0 clamp(30px, 7vw, 46px);
+    border-top: 1px solid var(--c-rule);
+  }
+
+  .cell--01 { order: 4; }
+  .cell--02 { order: 5; }
+  .cell--03 { order: 6; }
+  .cell--04 { order: 8; border-bottom: 1px solid var(--c-rule); }
+
+  .cell__no { font-size: 12px; }
+
+  .cell__arrow {
+    top: clamp(24px, 5.6vw, 38px);
+    right: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  .cell__note {
+    margin-top: clamp(22px, 5vw, 34px);
+    max-width: 46ch;
+    font-size: clamp(14px, 3.6vw, 15px);
+    line-height: 1.5;
+  }
+
+  .cell__title,
+  .cell__note ~ .cell__title {
+    margin-top: clamp(18px, 4.4vw, 28px);
+    font-size: clamp(22px, 5.4vw, 30px);
+    line-height: 1.2;
+  }
+
+  .about__dots { inset: -18% -22%; }
+}

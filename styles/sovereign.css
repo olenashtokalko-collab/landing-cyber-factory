@@ -1,0 +1,259 @@
+/* ---------------------------------------------------------------------------
+   Sovereign by design — Figma frames "Sovereign by design / 1, 2, 3"
+   Three columns: copy left, the stack in the middle, copy right. The stage
+   pins and one slab is added on top per step, so the object builds as you go.
+   --------------------------------------------------------------------------- */
+
+.sbd-track {
+  position: relative;
+  z-index: 1;
+  height: calc(100vh + var(--sbd-run, 320vh));
+  background: var(--c-surface-2);
+}
+
+.sbd-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--c-surface-2);
+}
+
+.sbd {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: calc(124 * var(--k));
+
+  --col-l: 510;   /* left rule  */
+  --col-r: 930;   /* right rule */
+}
+
+/* --- Head ---------------------------------------------------------------- */
+
+.sbd__head {
+  flex: 0 0 auto;
+  padding-left: calc(var(--col-l) * var(--k));
+}
+
+.sbd__tag {
+  display: inline-flex;
+  align-items: center;
+  height: calc(23 * var(--k));
+  padding-inline: calc(10 * var(--k));
+  border: 1px solid var(--c-rule);
+  border-radius: calc(3 * var(--k));
+  font-family: var(--font-mono);
+  font-size: calc(10 * var(--k));
+  letter-spacing: 0.02em;
+  color: var(--c-ink-55);
+  white-space: nowrap;
+}
+
+.sbd__title {
+  margin-top: calc(38 * var(--k));
+  font-size: calc(36 * var(--k));
+  line-height: calc(46 * var(--k));
+  font-weight: 400;
+  letter-spacing: 0.001em;
+  color: var(--c-ink);
+}
+
+.sbd__title-soft { color: var(--c-ink-mute); }
+
+.sbd__lede {
+  margin-top: calc(24 * var(--k));
+  font-size: calc(15 * var(--k));
+  line-height: calc(22 * var(--k));
+  color: var(--c-ink-mute);
+}
+
+/* --- Body: the three columns -------------------------------------------- */
+
+.sbd__body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.sbd__rails { position: absolute; inset: 0; pointer-events: none; }
+
+.sbd__rail {
+  position: absolute;
+  top: calc(40 * var(--k));
+  bottom: calc(40 * var(--k));
+  width: 1px;
+  background: var(--c-rule);
+}
+
+.sbd__rail--l { left: calc(var(--col-l) * var(--k)); }
+.sbd__rail--r { left: calc(var(--col-r) * var(--k)); }
+
+/* One copy block is shown at a time, alternating side to side. */
+.sbd__copy {
+  position: absolute;
+  top: 50%;
+  width: calc(300 * var(--k));
+  transform: translateY(-58%);
+}
+
+.sbd__copy--1,
+.sbd__copy--3 {
+  right: calc((1440 - var(--col-l) + 44) * var(--k));
+  text-align: right;
+}
+
+.sbd__copy--2 {
+  left: calc((var(--col-r) + 44) * var(--k));
+  text-align: left;
+}
+
+.sbd__no {
+  font-family: var(--font-mono);
+  font-size: calc(11 * var(--k));
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--c-amber);
+}
+
+.sbd__name {
+  margin-top: calc(30 * var(--k));
+  font-size: calc(22 * var(--k));
+  line-height: calc(29 * var(--k));
+  font-weight: 400;
+  letter-spacing: -0.004em;
+  color: var(--c-ink);
+}
+
+.sbd__desc {
+  margin-top: calc(14 * var(--k));
+  font-size: calc(13 * var(--k));
+  line-height: calc(20 * var(--k));
+  color: var(--c-ink-mute);
+}
+
+/* --- Centre column: the stack ------------------------------------------- */
+
+.sbd__panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(240 * var(--k));
+  height: calc(226 * var(--k));
+  transform: translate(-50%, -50%);
+}
+
+.slabs {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: #ccae70;
+}
+
+
+/* ---------------------------------------------------------------------------
+   Motion — every value is a function of a scalar the script writes from scroll
+   position. No timers: scrubbing back takes slabs off again.
+   --------------------------------------------------------------------------- */
+
+/* Copy blocks cross-fade; --c1..--c3 are their visibility. */
+.sbd__copy--1 { opacity: var(--c1, 1); }
+.sbd__copy--2 { opacity: var(--c2, 1); }
+.sbd__copy--3 { opacity: var(--c3, 1); }
+
+.sbd__copy {
+  transition: none;
+  will-change: opacity;
+}
+
+/* Each slab drops in from above and settles onto the one below.
+   --sv is how far it has landed, --tint how deep it has ended up in the stack:
+   the slab last laid reads full strength, the one beneath it 40%, the one
+   beneath those 20%. The tint rides on stroke-opacity so the dark fill stays
+   solid and keeps occluding the slab above. */
+.slab {
+  transform: translateY(calc((1 - var(--sv, 1)) * -60px));
+  opacity: var(--sv, 1);
+  stroke-opacity: var(--tint, 1);
+}
+
+.slab--1 { --sv: var(--s1, 1); --tint: var(--o1, 1); }
+.slab--2 { --sv: var(--s2, 1); --tint: var(--o2, 1); }
+.slab--3 { --sv: var(--s3, 1); --tint: var(--o3, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sbd-track { height: auto; }
+  .sbd-stage { position: static; height: auto; overflow: visible; }
+  .sbd__copy,
+  .slab { opacity: 1; transform: none; }
+}
+
+/* --- Below the design's breakpoint -------------------------------------- */
+/* No pin: the head, then each block with the stack it has reached. */
+
+@media (max-width: 1023px) {
+  .sbd-track { height: auto; }
+
+  .sbd-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .sbd {
+    display: block;
+    height: auto;
+    padding: clamp(72px, 14vw, 132px) var(--gutter-m);
+  }
+
+  .sbd__head { padding-left: 0; }
+
+  .sbd__title {
+    margin-top: clamp(28px, 6vw, 48px);
+    max-width: 20ch;
+    font-size: clamp(28px, 6.2vw, 44px);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+
+  .sbd__tag { height: 26px; padding-inline: 10px; font-size: 11px; }
+
+  .sbd__lede {
+    margin-top: clamp(18px, 4vw, 28px);
+    max-width: 46ch;
+    font-size: clamp(14px, 3.6vw, 16px);
+    line-height: 1.5;
+  }
+
+  .sbd__body { position: static; }
+  .sbd__rails { display: none; }
+
+  .sbd__copy {
+    position: static;
+    width: 100%;
+    max-width: 46ch;
+    right: auto;
+    left: auto;
+    text-align: left;
+    transform: none;
+    opacity: 1;
+    margin-top: clamp(44px, 10vw, 72px);
+  }
+
+  .sbd__name { margin-top: 18px; font-size: clamp(20px, 5vw, 26px); line-height: 1.24; }
+  .sbd__desc { margin-top: 12px; font-size: clamp(14px, 3.6vw, 15px); line-height: 1.5; }
+  .sbd__no { font-size: 12px; }
+
+  .sbd__panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: min(228px, 62vw);
+    height: auto;
+    aspect-ratio: 320 / 380;
+    margin: clamp(40px, 9vw, 64px) auto 0;
+  }
+
+  .slab { transform: none; opacity: 1; }
+}
